@@ -2,7 +2,7 @@
 
 A repo filled with close to a hundred offline games that can each run on a single file! This is a good option incase if you are having internet connectivity issues, or you're at some place with restricted internet.
 
-<img src="https://github.com/user-attachments/assets/17c7d701-7389-47c2-8740-c589d4b63a9a" alt="Run 3" width="400" height="400"> 
+<img src="https://github.com/user-attachments/assets/17c7d701-7389-47c2-8740-c589d4b63a9a" alt="Run 3" width="340" height="340"> 
 
 <img width="280" height="280" alt="Slope" src="https://github.com/user-attachments/assets/3340d846-68ec-40e7-8426-5ee5d46da3c6" />
 
