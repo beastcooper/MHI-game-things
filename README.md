@@ -17,6 +17,6 @@ No CDNs nor external frames, each game asset is inlined in the html file.
 
 Some files will be to large to copy and paste. Use chunks.py to split them. You can use https://github.com/CoolDude2349/schoolworkforall/blob/main/code-inputer2.html for loading the chunks. The Epic Viewer also has an option.
 
-The collection's updateted regulary to provide new games.
+The collection's updateted regulary to provide new offline games.
 
 Download a split and zipped version of the files here: https://www.mediafire.com/folder/ls4mnh7ywbd7m/offline_games_(split)
