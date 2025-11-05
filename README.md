@@ -1,6 +1,6 @@
 # A collection of offline single-file games.
 
-A repo filled with close to a hundred offline games that can each run on a single file! This is a good option incase if you are having internet connectivity issues, or you're at some place with restricted internet.
+A repo filled with close to a hundred offline games that can each run on a single file! This is a good option if you are having internet connectivity issues, or you're at some place with restricted internet.
 
 <img src="https://github.com/user-attachments/assets/17c7d701-7389-47c2-8740-c589d4b63a9a" alt="Run 3" width="270" height="270"> 
 
