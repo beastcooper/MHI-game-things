@@ -250,7 +250,7 @@ window.Audio.prototype = OriginalAudio.prototype;
 
 
 function rewriteURL(original) {
-if (original.includes("awecon")) return "dd";
+
   var trimmed = original.split("/").pop();
    
   if (trimmed.includes("?")) trimmed = trimmed.split("?")[0]
