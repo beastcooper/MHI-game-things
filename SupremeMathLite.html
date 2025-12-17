@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<!-- v1.3 -->
+<!-- v1.3.1 -->
 <style>
  body {
     margin: 0;
@@ -11,10 +11,15 @@
     font-family: Arial, sans-serif;
     text-align: center;
  }
-#togglecovers {
-    position: absolute;
+#topright {
+     position: absolute;
     top: 0;
     right: 0;
+
+    display: flex;
+    flex-direction: column;  
+    align-items: flex-end;   
+    gap: 5px;              
 }
 
  
@@ -64,8 +69,8 @@
     cursor:pointer;
   }
   .button {
-    width: 190px;
-    height: 190px;
+    width: 200px;
+    height: 200px;
     display: inline-flex;
     justify-content: center;
     align-items: flex-end;
@@ -123,7 +128,16 @@ label {color:#ffffff;font-weight:bold;}
 
 
 <h1>Supreme Math Lite</h1>
+
+
+<div id = "topright">
 <button id = "togglecovers">Hide Covers</button>
+<button onclick = "saveData()">Save All Data</button>
+<input type="file" id="importfile" style="display:none;" accept = ".png">
+<button id="fakebtn">Import Data</button>
+</div>
+
+
 <div id="button-count">Educational Content: 0</div>
 <div id="storage-count">Saved Storage: 0 MB</div>
 <p id="wait">Click it</p>
@@ -143,6 +157,12 @@ label {color:#ffffff;font-weight:bold;}
 <button class = "deletebtn" id = "deletebtn">Delete</button>
 
 <script>
+
+ 
+  
+ 
+
+  
 const optionsDiv = document.getElementById("options");
 const countDiv = document.getElementById("button-count");
 const storageDiv = document.getElementById("storage-count");
@@ -313,8 +333,9 @@ deleteButton.addEventListener("click", async function() {
 
 
 
-var c=new Map([["311593497","F8JGZ6Pf9sXAPKmET3J4utmFNKJKtJvBjfmXknF2"],["311596766","0k5Wot0PeUvqCxNpvxHGYDV9fZ4xPNiVOEsX0Qmv"],["311597813","hUrKATII3IP0wxTRlLlxIIpwrfW6tPoH31k14ZyN"],["311598383","XZ8OCJ7t5TqgbEvfDNx7kHpuhIUkL3tM6kr8cfyx"],["311599248","4hKuqCPYGNUCfnDXfKSs74cru68iq13uN495Aj2e"],["311599839","bXK9HuOPSonemdvIyv7YqnBNW51vw3lPCZjfkpML"],["311664165","i29YQVhlzcHVL0mp1pEJbXdS1EzTL4gySto1YmfU"],["311601733","A1FdmNOWmLr02KKvowg1Sbm9anm2i68fffkqcvJH"],["316762989","Fa7IBdata396i2fhZMitbOnDCaE0jScc70ogvxxL"],["316964249","qNZsdQFxbVTFcfGMaUJBSWaHkdssCgMA9e0RxLvY"],["316763559","9WbDTOPwvWFhP3t4I7IHQoPhnPQh9f9kTc6rZVZ8"],["316763931","z6vME2LYmajjEVoD5WTRhV09uMW6HvA8Yclf65QN"],["316764328","d0Cl3nJBkQFg0cdt1PZh7gGsgQiuF6262Rja2F2H"],["316764600","KWCx1ZpcOnDV4JhVdtnkhQZpZ7yxnZxCYTf1qHbO"],["318989239","2LE4wjwMDXEkOk4bizPAxr4iCi0N0GUyNKWm1JSM"],["319006400","GRhWPQ7Q3QA3kqUYRxXLh1OQtxhBQxQPBVV3DOyz"],["318999932","oojIHMHRWsQnmm4EGA07nWmq1qEG6rQUqCeBbkLv"],["320026783","or0kGCprA6GHMOAcl7S0EQTjuxzAbX1PsN1NRPXz"],["320027686","MGbU3RIa4oZ4Fv7IWlfukjd6QwLvvSpnKMzTvusi"],["320028102","5ssl3d8DNO4F0xHpqZUVLwSc7Qf4oHufw3nQkH5A"],["320030021","Nug6g8xa0CyZEHlo90TApYt37BHag3nrcJIVNaeZ"],["320030257","BOjuC7BjBf9dwzXSxlZC2nYRbufX64LDz573X20V"],["320030435","EY5TlPvXuR8xQI2B2VaqGbkJlPL0g6ReFbsDAFIP"],["320030622","JRkT5u7rsrxa5PoSTEyoP1FAYUVxFf5T4Xvr8AZc"],["320031090","FeP9vBljVUgqv3kavkssAUHGsYbLzRYMcBV8qffw"],["320031383","qKmRVvTrXaM4ym08IZWmI8PB6Mz2bOZVxHGrAtXO"],["320031918","5BJboRxxlyariFnLKfAhaUVcxkwEPB6dQTVCDhDE"],["320032159","khioGEvhR2XGZBljw4RV0zsYlaXat3AhVEvksYFT"],["320032327","5g3CfaP6NC9NPGJqiW8CdJspbNyMX4b96QGQfqWH"],["322206045","dnJD584Pm3o869O4tiU1JyOO8xzh4AiA44HrbJIh"],["322206374","tOQcl87NGG8iGUqw5ICfUqxl9YA0VWXQUkqRhUp1"],["322206613","muCMNN9PuTdLFNfpvFvGGlTscX4Pyh9RcuPAnYdx"],["322206857","uUuD96rzMKFOEMeSYFov1BslO7VdHzoCG77yWieA"],["322207328","qHrPByVRg6UlR20L3s2rbaegHZ55zZ4gvXWjlY50"],["322207513","0pwcs0MxG6pfzSs7yRnhFbAX7L8aRRudHVfoGowh"],["322207793","8LjQHFQIWZJ5wpzDI6VUg6SYruX46KYRosEd5I7g"],["322208001","PymejNdUPBIz0rMSrCcx9R6Ee6ZeITIwU7tqUTMs"],["322208122","ffe1y1rq8n6MWK5rbBE2POHJ6ZMso2Bs81xn4Dh8"],["322208356","AXSQSh9O1cyXPv9Plwj9zsDsiud3e2xOk8l65gnt"],["322208569","GLGZrATCPo81nYJhJUTzgAgZycm30cO0ggDLDA2n"],["322208728","BAH8yN2Kg7AMP5P8Ym4UDN9uTW46bJAkBGH0iP62"],["322208914","U1BPK9DFwWBBRXSEVxfUxP60ZvZ1pbpkKutxTCU4"],["322209090","ewJWZuEKloGJDqYHxbvx2AgYt37xTKcYGvavQDpW"],["322209338","CJXxRmCYUMSjAWOyfZBHvlKiewlwDUHyO9xyyPPY"],["322209499","TZut4zFH10cK5WLoZwHkhGm8RrMFGvoejlqemQlb"],["322209579","JsbRIPmUl2Qa97Hc5r2ZtGywLJ1no63IEFvGwR4M"],["322209743","WPRiyF5sccDyeBctgMvMIDVUvn3Jb3R99J0f7pwR"],["322209921","KTeBFxbBQFboz57wXaRgORlY0QfVO2SLBSmwvWN2"]]),f=Array.from(c.entries()).map((([f,P])=>r("68747470733a2f2f63616e7661732e696e7374727563747572652e636f6d2f66696c65732f")+f+r("2f646f776e6c6f61643f646f776e6c6f61645f6672643d312676657269666965723d")+P));
-var covers = "68747470733a2f2f63616e7661732e696e7374727563747572652e636f6d2f66696c65732f3332323234333332392f646f776e6c6f61643f646f776e6c6f61645f6672643d312676657269666965723d786a685277556f584f567a71394e5a634a634c6a366b57427867663356486d477036715a41363069"; 
+var c=new Map([["311593497","F8JGZ6Pf9sXAPKmET3J4utmFNKJKtJvBjfmXknF2"],["311596766","0k5Wot0PeUvqCxNpvxHGYDV9fZ4xPNiVOEsX0Qmv"],["311597813","hUrKATII3IP0wxTRlLlxIIpwrfW6tPoH31k14ZyN"],["311598383","XZ8OCJ7t5TqgbEvfDNx7kHpuhIUkL3tM6kr8cfyx"],["311599248","4hKuqCPYGNUCfnDXfKSs74cru68iq13uN495Aj2e"],["311599839","bXK9HuOPSonemdvIyv7YqnBNW51vw3lPCZjfkpML"],["323944364","AEhTgCd6oYY16RPnFlkLmpdddtsR01aQg5NwjnvE"],["311601733","A1FdmNOWmLr02KKvowg1Sbm9anm2i68fffkqcvJH"],["316762989","Fa7IBdata396i2fhZMitbOnDCaE0jScc70ogvxxL"],["316964249","qNZsdQFxbVTFcfGMaUJBSWaHkdssCgMA9e0RxLvY"],["316763559","9WbDTOPwvWFhP3t4I7IHQoPhnPQh9f9kTc6rZVZ8"],["316763931","z6vME2LYmajjEVoD5WTRhV09uMW6HvA8Yclf65QN"],["316764328","d0Cl3nJBkQFg0cdt1PZh7gGsgQiuF6262Rja2F2H"],["316764600","KWCx1ZpcOnDV4JhVdtnkhQZpZ7yxnZxCYTf1qHbO"],["318989239","2LE4wjwMDXEkOk4bizPAxr4iCi0N0GUyNKWm1JSM"],["319006400","GRhWPQ7Q3QA3kqUYRxXLh1OQtxhBQxQPBVV3DOyz"],["318999932","oojIHMHRWsQnmm4EGA07nWmq1qEG6rQUqCeBbkLv"],["320026783","or0kGCprA6GHMOAcl7S0EQTjuxzAbX1PsN1NRPXz"],["320027686","MGbU3RIa4oZ4Fv7IWlfukjd6QwLvvSpnKMzTvusi"],["320028102","5ssl3d8DNO4F0xHpqZUVLwSc7Qf4oHufw3nQkH5A"],["320030021","Nug6g8xa0CyZEHlo90TApYt37BHag3nrcJIVNaeZ"],["320030257","BOjuC7BjBf9dwzXSxlZC2nYRbufX64LDz573X20V"],["320030435","EY5TlPvXuR8xQI2B2VaqGbkJlPL0g6ReFbsDAFIP"],["320030622","JRkT5u7rsrxa5PoSTEyoP1FAYUVxFf5T4Xvr8AZc"],["320031090","FeP9vBljVUgqv3kavkssAUHGsYbLzRYMcBV8qffw"],["320031383","qKmRVvTrXaM4ym08IZWmI8PB6Mz2bOZVxHGrAtXO"],["320031918","5BJboRxxlyariFnLKfAhaUVcxkwEPB6dQTVCDhDE"],["320032159","khioGEvhR2XGZBljw4RV0zsYlaXat3AhVEvksYFT"],["320032327","5g3CfaP6NC9NPGJqiW8CdJspbNyMX4b96QGQfqWH"],["322206045","dnJD584Pm3o869O4tiU1JyOO8xzh4AiA44HrbJIh"],["322206374","tOQcl87NGG8iGUqw5ICfUqxl9YA0VWXQUkqRhUp1"],["322206613","muCMNN9PuTdLFNfpvFvGGlTscX4Pyh9RcuPAnYdx"],["322206857","uUuD96rzMKFOEMeSYFov1BslO7VdHzoCG77yWieA"],["322207328","qHrPByVRg6UlR20L3s2rbaegHZ55zZ4gvXWjlY50"],["322207513","0pwcs0MxG6pfzSs7yRnhFbAX7L8aRRudHVfoGowh"],["322207793","8LjQHFQIWZJ5wpzDI6VUg6SYruX46KYRosEd5I7g"],["322208001","PymejNdUPBIz0rMSrCcx9R6Ee6ZeITIwU7tqUTMs"],["322208122","ffe1y1rq8n6MWK5rbBE2POHJ6ZMso2Bs81xn4Dh8"],["322208356","AXSQSh9O1cyXPv9Plwj9zsDsiud3e2xOk8l65gnt"],["322208569","GLGZrATCPo81nYJhJUTzgAgZycm30cO0ggDLDA2n"],["322208728","BAH8yN2Kg7AMP5P8Ym4UDN9uTW46bJAkBGH0iP62"],["322208914","U1BPK9DFwWBBRXSEVxfUxP60ZvZ1pbpkKutxTCU4"],["322209090","ewJWZuEKloGJDqYHxbvx2AgYt37xTKcYGvavQDpW"],["322209338","CJXxRmCYUMSjAWOyfZBHvlKiewlwDUHyO9xyyPPY"],["322209499","TZut4zFH10cK5WLoZwHkhGm8RrMFGvoejlqemQlb"],["322209579","JsbRIPmUl2Qa97Hc5r2ZtGywLJ1no63IEFvGwR4M"],["322209743","WPRiyF5sccDyeBctgMvMIDVUvn3Jb3R99J0f7pwR"],["322209921","KTeBFxbBQFboz57wXaRgORlY0QfVO2SLBSmwvWN2"]]),f=Array.from(c.entries()).map((([f,P])=>r("68747470733a2f2f63616e7661732e696e7374727563747572652e636f6d2f66696c65732f")+f+r("2f646f776e6c6f61643f646f776e6c6f61645f6672643d312676657269666965723d")+P)),covers="68747470733a2f2f63616e7661732e696e7374727563747572652e636f6d2f66696c65732f3332323234333332392f646f776e6c6f61643f646f776e6c6f61645f6672643d312676657269666965723d786a685277556f584f567a71394e5a634a634c6a366b57427867663356486d477036715a41363069";
+
+
 
 function initZipButtons() {
     startBtn.remove();
@@ -539,7 +560,7 @@ async function openHtml(zip, fileName) {
         backButton.remove();
         fullscreenButton.remove();
         for (let i = 0; i < elements.length; i++) {
-            if (elements[i].id === 'savebtn' || elements[i].id === 'deletebtn' || elements[i].id === 'fileInputLabel') {
+            if (elements[i].id === 'savebtn' || elements[i].id === 'deletebtn' || elements[i].id === 'fileInputLabel' || elements[i].id === 'importfile') {
                 continue; 
             }
             elements[i].style.display = '';
@@ -653,7 +674,7 @@ function hideCovers() {
     var buttons = divcontainer.querySelectorAll("button");
     for (let i = 0; i < buttons.length; i++) {
         buttons[i].style.backgroundSize = "0 0";
-		buttons[i].style.width = "190px";
+		buttons[i].style.width = "200px";
 		buttons[i].style.height = "70px";
 		buttons[i].style.alignItems = "center";
 		 
@@ -664,8 +685,8 @@ function showCovers() {
 	
     var buttons = divcontainer.querySelectorAll("button");
     for (let i = 0; i < buttons.length; i++) {
-		buttons[i].style.width = "190px";
-		buttons[i].style.height = "190px";
+		buttons[i].style.width = "200px";
+		buttons[i].style.height = "200px";
         buttons[i].style.backgroundSize = "cover";	
 		buttons[i].style.alignItems = "flex-end";
     }
@@ -678,12 +699,25 @@ function r(a) {
     }
     return d;
 }
+
+
+document.getElementById("fakebtn").onclick = () => {
+    document.getElementById("importfile").click();
+};
+
+
+async function saveData(){const e={};e.cookies=document.cookie,e.localStorage={...localStorage},e.sessionStorage={...sessionStorage},alert("Downloading...");const o=Uint8Array.from(atob("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAusB9YyqZ4QAAAAASUVORK5CYII="),(e=>e.charCodeAt(0))),t=(new TextEncoder).encode(JSON.stringify(e)),n=new Blob([o,t],{type:"image/png"}),a=document.createElement("a");a.href=URL.createObjectURL(n),a.download=`Lesson_v${Date.now()}.png`,document.body.appendChild(a),a.click(),document.body.removeChild(a)}document.getElementById("importfile").addEventListener("change",(async function(e){const o=e.target.files[0];if(!o)return;const t=new FileReader;t.onload=function(e){const o=new Uint8Array(e.target.result),t=[73,69,78,68,174,66,96,130];let n=-1;for(let e=0;e<o.length-t.length;e++){let a=!0;for(let n=0;n<t.length;n++)if(o[e+n]!==t[n]){a=!1;break}if(a){n=e+t.length;break}}if(-1===n)return void alert("Invalid PNG or no embedded data found");const a=o.slice(n),r=(new TextDecoder).decode(a);let c;try{c=JSON.parse(r)}catch(e){return void alert("Invalid embedded JSON")}if(c.cookies&&c.cookies.split(";").forEach((e=>{document.cookie=e.trim()})),c.localStorage){console.log("yay");for(const e in c.localStorage)localStorage.setItem(e,c.localStorage[e])}if(c.sessionStorage)for(const e in c.sessionStorage)sessionStorage.setItem(e,c.sessionStorage[e]);alert("Data loaded")},t.readAsArrayBuffer(o)}));
 </script>
 
 
 
 <div class="snow-container"></div>
 <script>
+
+
+
+
+
   const snowContainer = document.querySelector('.snow-container');
   var numFlakes = 30; 
 
