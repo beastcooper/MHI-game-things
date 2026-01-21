@@ -1,9 +1,11 @@
-1. Obtain a copy of the Supreme Math Lite from this repo and store in your downloads (or transfer to another device)
+1. Obtain a copy of the single-file from this repo and store in your downloads (or transfer to another device)
 2. Login to Canvas Instructure (canvas.instructure.com)
-3. Upload the file to the website
-4. View the file and copy the download link.
-5. Open a new tab and paste the link
-6. Before clicking enter, remove everything after /download.
-7. Hit enter
+3. Go to Account > Files > My Files
+4. Upload the file to the website
+5. View the file by clicking on the name
+6. Copy the download link by right clicking on the download icon in the upper righthand corner and selecting 'Copy link address'.
+7. Open a new tab and paste the link
+8. Before clicking enter, remove everything after /download.
+9. Hit enter
 
-The url will only work for the person who's logged into Canvas and uploaded the file.
+Based on my results, url will only work for the person who's logged into Canvas and uploaded the file.
