@@ -26,7 +26,7 @@
             border-radius: 15px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             padding: 40px;
-            max-width: 800px;
+            max-width: 1200px;
             width: 100%;
         }
 
@@ -40,14 +40,41 @@
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             font-size: 1.1em;
+        }
+
+        .search-container {
+            margin-bottom: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        #searchBox {
+            flex: 1;
+            padding: 12px 20px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        #searchBox:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .game-count {
+            text-align: center;
+            color: #999;
+            font-size: 0.9em;
+            margin-bottom: 20px;
         }
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
             margin-bottom: 30px;
         }
 
@@ -55,15 +82,20 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            font-size: 1em;
+            font-size: 0.95em;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
             word-wrap: break-word;
             word-break: break-word;
+            min-height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
         }
 
         .game-button:hover {
@@ -109,356 +141,429 @@
         <h1>🎮 MHI Games</h1>
         <p class="subtitle">Select a game to play</p>
         
+        <div class="search-container">
+            <input type="text" id="searchBox" placeholder="🔍 Search games..." />
+        </div>
+
+        <div class="game-count">
+            <span id="gameCountText">Loading...</span>
+        </div>
+        
         <div id="gamesContainer" class="games-grid">
             <div class="loading">Loading games...</div>
         </div>
 
         <div class="info">
-            <strong>ℹ️ Note:</strong> Games are loaded from the <code>offline</code> folder. Each button will open the game in a new window.
+            <strong>ℹ️ Note:</strong> Games are loaded in a new tab. Click any game to play!
         </div>
     </div>
 
     <script>
-        // Configuration
-        const OFFLINE_FOLDER = 'offline/';
+        // Configuration - All your games
         const GAMES_LIST = [
-            
-'1.12.html'
-'1.5.html'
-'1.8.html'
-'10minutestilldawn.html'
-'12minibattles.html'
-'1on1soccer.html'
-'1on1tennis.html'
-'1v1.lol.html'
-'2048.html'
-'2048cupcakes.html'
-'3Dflightsimulator.html'
-'8ballclassic.html'
-'Alpha_1.2.6.html'
-'Beta_1.3.html'
-'Indev.html'
-'agariolite.html'
-'ageofwar.html'
-'ageofwar2.html'
-'agesofconflict.html'
-'amongus.html'
-'angrybirds.html'
-'angrybirdsshowdown.html'
-'angrybirdsspace.html'
-'awesometanks.html'
-'awesometanks2.html'
-'backrooms.html'
-'baconmaydie.html'
-'badicecream.html'
-'badicecream2.html'
-'badicecream3.html'
-'badparenting.html'
-'badpiggies.html'
-'baldisbasics.html'
-'baseballbros.html'
-'basketballlegends.html'
-'basketballstars.html'
-'basketbros.html'
-'basketrandom.html'
-'bitlife.html'
-'bitplanes.htm'
-'blockysnakes.html'
-'bloonsTD.html'
-'bloonsTD2.html'
-'bloonsTD3.html'
-'bloonsTD4.html'
-'bloonsTD5.html'
-'bloxorz.html'
-'blumgiracers.html'
-'blumgirocket.html'
-'bobtherobber.html'
-'bobtherobber2.html'
-'bobtherobber5.html'
-'bouncymotors.html'
-'bowmasters.html'
-'boxingrandom.htm'
-'breakingthebank.html'
-'bubbleshooter.html'
-'candycrush.html'
-'capybaraclicker.html'
-'cardrawing.html'
-'carkingarena.html'
-'chess.html'
-'choppyorc.html'
-'circloO.html'
-'circloO2.html'
-'clashofvikings.html'
-'cleanupio.html'
-'clusterrush.html'
-'cookieclicker.htm'
-'crazycars.html'
-'crazycattle3D.html'
-'crazycrashlanding.html'
-'crazymotorcycle.html'
-'crossyroad.htm'
-'cuttherope.html'
-'dadish.html'
-'dadish2.html'
-'dadish3.html'
-'deathchase.html'
-'deathrun3D.html'
-'demolitionderbycrashracing.html'
-'doodlejump.html'
-'drawclimber.html'
-'dreadheadparkour.htm'
-'driftboss.htm'
-'drivemad.htm'
-'ducklife.html'
-'ducklife2.html'
-'ducklife3.html'
-'ducklife4.html'
-'ducklife5.html'
-'ducklingsio.html'
-'eagleride.html'
-'earntodie.html'
-'earntodie2.html'
-'eggycar.html'
-'elasticface.htm'
-'escaperoad.html'
-'escaperoad2.html'
-'escapingtheprison.html'
-'evilglitch.html'
-'fancypantsadventure.html'
-'fancypantsadventure2.html'
-'fireboyandwatergirl.html'
-'fireboyandwatergirl2.html'
-'fireboyandwatergirl3.html'
-'fireboyandwatergirl4.html'
-'flappybird.html'
-'floodrunner2.html'
-'floodrunner3.html'
-'floodrunner4.html'
-'fnaf.html'
-'fnaf2.html'
-'fnaf3.html'
-'fnaf4.html'
-'footballbros.html'
-'footballlegends.html'
-'freerider3.html'
-'fruitninja.html'
-'funnybattle.html'
-'funnybattle2.html'
-'funnymadracing.html'
-'funnyshooter2.html'
-'geometrydash.html'
-'geometrydashlite.html'
-'geometryvibes.html'
-'getawayshootout.htm'
-'getontop.html'
-'gladihoppers.html'
-'googlebaseball.html'
-'googledino.html'
-'granny.html'
-'granny2.html'
-'guesstheiranswer.html'
-'hanger2.html'
-'happywheels.html'
-'helixjump.html'
-'highwaytraffic.html'
-'hillclimbracinglite.html'
-'holeio.html'
-'houseofhazards.html'
-'hoverracerdrive.html'
-'idlebreakout.html'
-'ironsnout.html'
-'jetpackjoyride.html'
-'johnnytrigger.html'
-'jumpingshell.html'
-'karatebros.html'
-'kartbros.html'
-'learntofly.html'
-'learntofly2.html'
-'learntofly3.html'
-'learntoflyidle.html'
-'leveldevil.html'
-'madalinstuntcars2.html'
-'melonplayground.html'
-'mergeroundracers.html'
-'minesweeper.html'
-'monkeymart.htm'
-'monstertracks.html'
-'motox3m.htm'
-'motox3m2.html'
-'motox3m3.html'
-'motox3mpoolparty.html'
-'motox3mspookyland.html'
-'motox3mwinter.html'
-'noobminer.html'
-'oppositeday.html'
-'ovo.html'
-'ovo2.html'
-'ovo3dimensions.html'
-'pacman.html'
-'papasbakeria.html'
-'papasburgeria.html'
-'papascheeseria.html'
-'papascupcakeria.html'
-'papasdonuteria.html'
-'papasfreezeria.html'
-'papashotdoggeria.html'
-'papaspancakeria.html'
-'papaspastaria.html'
-'papaspizzeria.html'
-'papasscooperia.html'
-'papassushiria.html'
-'papastacomia.html'
-'papaswingeria.html'
-'paperio2.htm'
-'parkingfury.html'
-'parkingfury2.html'
-'parkingfury3.html'
-'picosschool.html'
-'pingpongchaos.html'
-'pixelspeedrun.html'
-'plantsvszombies.html'
-'plonky.html'
-'polytrack.html'
-'poorbunny.html'
-'pou.html'
-'ragdollarchers.htm'
-'ragdollhit.html'
-'ragdollsoccer.html'
-'redball4vol1.html'
-'redball4vol2.html'
-'redball4vol3.html'
-'retrobowl.html'
-'retrobowlcollege.html'
-'retrohighway.html'
-'retropingpong.html'
-'riddleschool.html'
-'riddleschool2.html'
-'riddleschool3.html'
-'riddleschool4.html'
-'riddleschool5.html'
-'riddletransfer.html'
-'riddletransfer2.html'
-'rocketsoccerderby.html'
-'rooftopsnipers.htm'
-'rooftopsnipers2.html'
-'run.html'
-'run2.html'
-'run3.html'
-'sandgame.html'
-'shortlife.html'
-'slope.html'
-'slope2player.html'
-'slope3.html'
-'slowroads.html'
-'sm63.html'
-'sm64.html'
-'snowballio.html'
-'snowrider.htm'
-'snowroad.htm'
-'soccerbros.html'
-'soccerrandom.htm'
-'spacebarclicker.html'
-'spaceiskey.html'
-'spaceiskey2.html'
-'spacewaves.html'
-'speedstars.html'
-'sprunki.html'
-'stack.html'
-'stacktris.html'
-'stateio.html'
-'stickarchersbattle.html'
-'stickfighter.html'
-'stickmanhook.html'
-'stickmerge.html'
-'subwaysurfersbeijing.html'
-'subwaysurfershavana.html'
-'subwaysurferssanfrancisco.html'
-'superbikethechampion.html'
-'superhot.html'
-'superliquidsoccer.html'
-'superstarcar.html'
-'tabletennisworldtour.html'
-'tag.html'
-'taproad.html'
-'templeofboom.html'
-'templerun2.htm'
-'territorialio.html'
-'theimpossiblequiz.html'
-'theimpossiblequiz2.html'
-'thereisnog.html'
-'theyarecoming.html'
-'thisistheonlylevel.html'
-'thisistheonlyleveltoo.html'
-'timeshooter2.html'
-'timeshooter3.htm'
-'tinyfishing.html'
-'tombofthemask.htm'
-'trapthecat.html'
-'triviacrack.html'
-'tubejumpers.html'
-'tunnelrush.html'
-'unicyclehero.html'
-'vex4.html'
-'vex5.html'
-'vex6.htm'
-'vex7.htm'
-'vex8.htm'
-'vexx3m.html'
-'vexx3m2.html'
-'volleyrandom.html'
-'wartheknights.html'
-'webecomewhatwebehold.html'
-'wheeliebike.html'
-'wheely.html'
-'wheely2.html'
-'wheely3.html'
-'wheely4.html'
-'wheely5.html'
-'wheely6.html'
-'wheely7.html'
-'wheely8.html'
-'wordleunlimited.html'
-'worldshardestgame.html'
-'worldshardestgame2.html'
-'worldshardestgame3.html'
-'wrestlebros.html'
-'zombierush.html'
-            // Add your HTML file names here, for example:
-            // 'game1.html',
-            // 'game2.html',
-            // 'game3.html',
+            { name: '1.12', filename: 'offline/1.12.html' },
+            { name: '1.5', filename: 'offline/1.5.html' },
+            { name: '1.8', filename: 'offline/1.8.html' },
+            { name: '10 Minutes Till Dawn', filename: 'offline/10minutestilldawn.html' },
+            { name: '12 Mini Battles', filename: 'offline/12minibattles.html' },
+            { name: '1 on 1 Soccer', filename: 'offline/1on1soccer.html' },
+            { name: '1 on 1 Tennis', filename: 'offline/1on1tennis.html' },
+            { name: '1v1.lol', filename: 'offline/1v1.lol.html' },
+            { name: '2048', filename: 'offline/2048.html' },
+            { name: '2048 Cupcakes', filename: 'offline/2048cupcakes.html' },
+            { name: '3D Flight Simulator', filename: 'offline/3Dflightsimulator.html' },
+            { name: '8 Ball Classic', filename: 'offline/8ballclassic.html' },
+            { name: 'Alpha 1.2.6', filename: 'offline/Alpha_1.2.6.html' },
+            { name: 'Beta 1.3', filename: 'offline/Beta_1.3.html' },
+            { name: 'Indev', filename: 'offline/Indev.html' },
+            { name: 'Agariolite', filename: 'offline/agariolite.html' },
+            { name: 'Age of War', filename: 'offline/ageofwar.html' },
+            { name: 'Age of War 2', filename: 'offline/ageofwar2.html' },
+            { name: 'Ages of Conflict', filename: 'offline/agesofconflict.html' },
+            { name: 'Among Us', filename: 'offline/amongus.html' },
+            { name: 'Angry Birds', filename: 'offline/angrybirds.html' },
+            { name: 'Angry Birds Showdown', filename: 'offline/angrybirdsshowdown.html' },
+            { name: 'Angry Birds Space', filename: 'offline/angrybirdsspace.html' },
+            { name: 'Awesome Tanks', filename: 'offline/awesometanks.html' },
+            { name: 'Awesome Tanks 2', filename: 'offline/awesometanks2.html' },
+            { name: 'Backrooms', filename: 'offline/backrooms.html' },
+            { name: 'Bacon May Die', filename: 'offline/baconmaydie.html' },
+            { name: 'Bad Ice Cream', filename: 'offline/badicecream.html' },
+            { name: 'Bad Ice Cream 2', filename: 'offline/badicecream2.html' },
+            { name: 'Bad Ice Cream 3', filename: 'offline/badicecream3.html' },
+            { name: 'Bad Parenting', filename: 'offline/badparenting.html' },
+            { name: 'Bad Piggies', filename: 'offline/badpiggies.html' },
+            { name: "Baldi's Basics", filename: 'offline/baldisbasics.html' },
+            { name: 'Baseball Bros', filename: 'offline/baseballbros.html' },
+            { name: 'Basketball Legends', filename: 'offline/basketballlegends.html' },
+            { name: 'Basketball Stars', filename: 'offline/basketballstars.html' },
+            { name: 'Basket Bros', filename: 'offline/basketbros.html' },
+            { name: 'Basket Random', filename: 'offline/basketrandom.html' },
+            { name: 'BitLife', filename: 'offline/bitlife.html' },
+            { name: 'Bit Planes', filename: 'offline/bitplanes.htm' },
+            { name: 'Blocky Snakes', filename: 'offline/blockysnakes.html' },
+            { name: 'Bloons TD', filename: 'offline/bloonsTD.html' },
+            { name: 'Bloons TD 2', filename: 'offline/bloonsTD2.html' },
+            { name: 'Bloons TD 3', filename: 'offline/bloonsTD3.html' },
+            { name: 'Bloons TD 4', filename: 'offline/bloonsTD4.html' },
+            { name: 'Bloons TD 5', filename: 'offline/bloonsTD5.html' },
+            { name: 'Bloxorz', filename: 'offline/bloxorz.html' },
+            { name: 'Blumgi Racers', filename: 'offline/blumgiracers.html' },
+            { name: 'Blumgi Rocket', filename: 'offline/blumgirocket.html' },
+            { name: 'Bob the Robber', filename: 'offline/bobtherobber.html' },
+            { name: 'Bob the Robber 2', filename: 'offline/bobtherobber2.html' },
+            { name: 'Bob the Robber 5', filename: 'offline/bobtherobber5.html' },
+            { name: 'Bouncy Motors', filename: 'offline/bouncymotors.html' },
+            { name: 'Bowmasters', filename: 'offline/bowmasters.html' },
+            { name: 'Boxing Random', filename: 'offline/boxingrandom.htm' },
+            { name: 'Breaking the Bank', filename: 'offline/breakingthebank.html' },
+            { name: 'Bubble Shooter', filename: 'offline/bubbleshooter.html' },
+            { name: 'Candy Crush', filename: 'offline/candycrush.html' },
+            { name: 'Capybara Clicker', filename: 'offline/capybaraclicker.html' },
+            { name: 'Card Drawing', filename: 'offline/cardrawing.html' },
+            { name: 'Car King Arena', filename: 'offline/carkingarena.html' },
+            { name: 'Chess', filename: 'offline/chess.html' },
+            { name: 'Choppy Orc', filename: 'offline/choppyorc.html' },
+            { name: 'CircloO', filename: 'offline/circloO.html' },
+            { name: 'CircloO 2', filename: 'offline/circloO2.html' },
+            { name: 'Clash of Vikings', filename: 'offline/clashofvikings.html' },
+            { name: 'Cleanup.io', filename: 'offline/cleanupio.html' },
+            { name: 'Cluster Rush', filename: 'offline/clusterrush.html' },
+            { name: 'Cookie Clicker', filename: 'offline/cookieclicker.htm' },
+            { name: 'Crazy Cars', filename: 'offline/crazycars.html' },
+            { name: 'Crazy Cattle 3D', filename: 'offline/crazycattle3D.html' },
+            { name: 'Crazy Crash Landing', filename: 'offline/crazycrashlanding.html' },
+            { name: 'Crazy Motorcycle', filename: 'offline/crazymotorcycle.html' },
+            { name: 'Crossy Road', filename: 'offline/crossyroad.htm' },
+            { name: 'Cut the Rope', filename: 'offline/cuttherope.html' },
+            { name: 'Dadish', filename: 'offline/dadish.html' },
+            { name: 'Dadish 2', filename: 'offline/dadish2.html' },
+            { name: 'Dadish 3', filename: 'offline/dadish3.html' },
+            { name: 'Death Chase', filename: 'offline/deathchase.html' },
+            { name: 'Death Run 3D', filename: 'offline/deathrun3D.html' },
+            { name: 'Demolition Derby Crash Racing', filename: 'offline/demolitionderbycrashracing.html' },
+            { name: 'Doodle Jump', filename: 'offline/doodlejump.html' },
+            { name: 'Draw Climber', filename: 'offline/drawclimber.html' },
+            { name: 'Dread Head Parkour', filename: 'offline/dreadheadparkour.htm' },
+            { name: 'Drift Boss', filename: 'offline/driftboss.htm' },
+            { name: 'Drive Mad', filename: 'offline/drivemad.htm' },
+            { name: 'Duck Life', filename: 'offline/ducklife.html' },
+            { name: 'Duck Life 2', filename: 'offline/ducklife2.html' },
+            { name: 'Duck Life 3', filename: 'offline/ducklife3.html' },
+            { name: 'Duck Life 4', filename: 'offline/ducklife4.html' },
+            { name: 'Duck Life 5', filename: 'offline/ducklife5.html' },
+            { name: 'Ducklings.io', filename: 'offline/ducklingsio.html' },
+            { name: 'Eagle Ride', filename: 'offline/eagleride.html' },
+            { name: 'Earn to Die', filename: 'offline/earntodie.html' },
+            { name: 'Earn to Die 2', filename: 'offline/earntodie2.html' },
+            { name: 'Eggy Car', filename: 'offline/eggycar.html' },
+            { name: 'Elastic Face', filename: 'offline/elasticface.htm' },
+            { name: 'Escape Road', filename: 'offline/escaperoad.html' },
+            { name: 'Escape Road 2', filename: 'offline/escaperoad2.html' },
+            { name: 'Escaping the Prison', filename: 'offline/escapingtheprison.html' },
+            { name: 'Evil Glitch', filename: 'offline/evilglitch.html' },
+            { name: 'Fancy Pants Adventure', filename: 'offline/fancypantsadventure.html' },
+            { name: 'Fancy Pants Adventure 2', filename: 'offline/fancypantsadventure2.html' },
+            { name: 'Fireboy and Watergirl', filename: 'offline/fireboyandwatergirl.html' },
+            { name: 'Fireboy and Watergirl 2', filename: 'offline/fireboyandwatergirl2.html' },
+            { name: 'Fireboy and Watergirl 3', filename: 'offline/fireboyandwatergirl3.html' },
+            { name: 'Fireboy and Watergirl 4', filename: 'offline/fireboyandwatergirl4.html' },
+            { name: 'Flappy Bird', filename: 'offline/flappybird.html' },
+            { name: 'Flood Runner 2', filename: 'offline/floodrunner2.html' },
+            { name: 'Flood Runner 3', filename: 'offline/floodrunner3.html' },
+            { name: 'Flood Runner 4', filename: 'offline/floodrunner4.html' },
+            { name: 'FNAF', filename: 'offline/fnaf.html' },
+            { name: 'FNAF 2', filename: 'offline/fnaf2.html' },
+            { name: 'FNAF 3', filename: 'offline/fnaf3.html' },
+            { name: 'FNAF 4', filename: 'offline/fnaf4.html' },
+            { name: 'Football Bros', filename: 'offline/footballbros.html' },
+            { name: 'Football Legends', filename: 'offline/footballlegends.html' },
+            { name: 'Free Rider 3', filename: 'offline/freerider3.html' },
+            { name: 'Fruit Ninja', filename: 'offline/fruitninja.html' },
+            { name: 'Funny Battle', filename: 'offline/funnybattle.html' },
+            { name: 'Funny Battle 2', filename: 'offline/funnybattle2.html' },
+            { name: 'Funny Mad Racing', filename: 'offline/funnymadracing.html' },
+            { name: 'Funny Shooter 2', filename: 'offline/funnyshooter2.html' },
+            { name: 'Geometry Dash', filename: 'offline/geometrydash.html' },
+            { name: 'Geometry Dash Lite', filename: 'offline/geometrydashlite.html' },
+            { name: 'Geometry Vibes', filename: 'offline/geometryvibes.html' },
+            { name: 'Get Away Shootout', filename: 'offline/getawayshootout.htm' },
+            { name: 'Get on Top', filename: 'offline/getontop.html' },
+            { name: 'Gladi Hoppers', filename: 'offline/gladihoppers.html' },
+            { name: 'Google Baseball', filename: 'offline/googlebaseball.html' },
+            { name: 'Google Dino', filename: 'offline/googledino.html' },
+            { name: 'Granny', filename: 'offline/granny.html' },
+            { name: 'Granny 2', filename: 'offline/granny2.html' },
+            { name: 'Guess Their Answer', filename: 'offline/guesstheiranswer.html' },
+            { name: 'Hanger 2', filename: 'offline/hanger2.html' },
+            { name: 'Happy Wheels', filename: 'offline/happywheels.html' },
+            { name: 'Helix Jump', filename: 'offline/helixjump.html' },
+            { name: 'Highway Traffic', filename: 'offline/highwaytraffic.html' },
+            { name: 'Hill Climb Racing Lite', filename: 'offline/hillclimbracinglite.html' },
+            { name: 'Hole.io', filename: 'offline/holeio.html' },
+            { name: 'House of Hazards', filename: 'offline/houseofhazards.html' },
+            { name: 'Hover Racer Drive', filename: 'offline/hoverracerdrive.html' },
+            { name: 'Idle Breakout', filename: 'offline/idlebreakout.html' },
+            { name: 'Iron Snout', filename: 'offline/ironsnout.html' },
+            { name: 'Jetpack Joyride', filename: 'offline/jetpackjoyride.html' },
+            { name: 'Johnny Trigger', filename: 'offline/johnnytrigger.html' },
+            { name: 'Jumping Shell', filename: 'offline/jumpingshell.html' },
+            { name: 'Karate Bros', filename: 'offline/karatebros.html' },
+            { name: 'Kart Bros', filename: 'offline/kartbros.html' },
+            { name: 'Learn to Fly', filename: 'offline/learntofly.html' },
+            { name: 'Learn to Fly 2', filename: 'offline/learntofly2.html' },
+            { name: 'Learn to Fly 3', filename: 'offline/learntofly3.html' },
+            { name: 'Learn to Fly Idle', filename: 'offline/learntoflyidle.html' },
+            { name: 'Level Devil', filename: 'offline/leveldevil.html' },
+            { name: 'Madalin Stunt Cars 2', filename: 'offline/madalinstuntcars2.html' },
+            { name: 'Melon Playground', filename: 'offline/melonplayground.html' },
+            { name: 'Merge Round Racers', filename: 'offline/mergeroundracers.html' },
+            { name: 'Minesweeper', filename: 'offline/minesweeper.html' },
+            { name: 'Monkey Mart', filename: 'offline/monkeymart.htm' },
+            { name: 'Monster Tracks', filename: 'offline/monstertracks.html' },
+            { name: 'Moto X3M', filename: 'offline/motox3m.htm' },
+            { name: 'Moto X3M 2', filename: 'offline/motox3m2.html' },
+            { name: 'Moto X3M 3', filename: 'offline/motox3m3.html' },
+            { name: 'Moto X3M Pool Party', filename: 'offline/motox3mpoolparty.html' },
+            { name: 'Moto X3M Spooky Land', filename: 'offline/motox3mspookyland.html' },
+            { name: 'Moto X3M Winter', filename: 'offline/motox3mwinter.html' },
+            { name: 'Noob Miner', filename: 'offline/noobminer.html' },
+            { name: 'Opposite Day', filename: 'offline/oppositeday.html' },
+            { name: 'OvO', filename: 'offline/ovo.html' },
+            { name: 'OvO 2', filename: 'offline/ovo2.html' },
+            { name: 'OvO 3D', filename: 'offline/ovo3dimensions.html' },
+            { name: 'Pac-Man', filename: 'offline/pacman.html' },
+            { name: "Papa's Bakeria", filename: 'offline/papasbakeria.html' },
+            { name: "Papa's Burgeria", filename: 'offline/papasburgeria.html' },
+            { name: "Papa's Cheeseria", filename: 'offline/papascheeseria.html' },
+            { name: "Papa's Cupcakeria", filename: 'offline/papascupcakeria.html' },
+            { name: "Papa's Donuteria", filename: 'offline/papasdonuteria.html' },
+            { name: "Papa's Freezeria", filename: 'offline/papasfreezeria.html' },
+            { name: "Papa's Hot Doggeria", filename: 'offline/papashotdoggeria.html' },
+            { name: "Papa's Pancakeria", filename: 'offline/papaspancakeria.html' },
+            { name: "Papa's Pastaria", filename: 'offline/papaspastaria.html' },
+            { name: "Papa's Pizzeria", filename: 'offline/papaspizzeria.html' },
+            { name: "Papa's Scooperia", filename: 'offline/papasscooperia.html' },
+            { name: "Papa's Sushiria", filename: 'offline/papassushiria.html' },
+            { name: "Papa's Tacomia", filename: 'offline/papastacomia.html' },
+            { name: "Papa's Wingeria", filename: 'offline/papaswingeria.html' },
+            { name: 'Paper.io 2', filename: 'offline/paperio2.htm' },
+            { name: 'Parking Fury', filename: 'offline/parkingfury.html' },
+            { name: 'Parking Fury 2', filename: 'offline/parkingfury2.html' },
+            { name: 'Parking Fury 3', filename: 'offline/parkingfury3.html' },
+            { name: "Pico's School", filename: 'offline/picosschool.html' },
+            { name: 'Ping Pong Chaos', filename: 'offline/pingpongchaos.html' },
+            { name: 'Pixel Speedrun', filename: 'offline/pixelspeedrun.html' },
+            { name: 'Plants vs Zombies', filename: 'offline/plantsvszombies.html' },
+            { name: 'Plonky', filename: 'offline/plonky.html' },
+            { name: 'Polytrack', filename: 'offline/polytrack.html' },
+            { name: 'Poor Bunny', filename: 'offline/poorbunny.html' },
+            { name: 'Pou', filename: 'offline/pou.html' },
+            { name: 'Ragdoll Archers', filename: 'offline/ragdollarchers.htm' },
+            { name: 'Ragdoll Hit', filename: 'offline/ragdollhit.html' },
+            { name: 'Ragdoll Soccer', filename: 'offline/ragdollsoccer.html' },
+            { name: 'Red Ball 4 Vol 1', filename: 'offline/redball4vol1.html' },
+            { name: 'Red Ball 4 Vol 2', filename: 'offline/redball4vol2.html' },
+            { name: 'Red Ball 4 Vol 3', filename: 'offline/redball4vol3.html' },
+            { name: 'Retro Bowl', filename: 'offline/retrobowl.html' },
+            { name: 'Retro Bowl College', filename: 'offline/retrobowlcollege.html' },
+            { name: 'Retro Highway', filename: 'offline/retrohighway.html' },
+            { name: 'Retro Ping Pong', filename: 'offline/retropingpong.html' },
+            { name: 'Riddle School', filename: 'offline/riddleschool.html' },
+            { name: 'Riddle School 2', filename: 'offline/riddleschool2.html' },
+            { name: 'Riddle School 3', filename: 'offline/riddleschool3.html' },
+            { name: 'Riddle School 4', filename: 'offline/riddleschool4.html' },
+            { name: 'Riddle School 5', filename: 'offline/riddleschool5.html' },
+            { name: 'Riddle Transfer', filename: 'offline/riddletransfer.html' },
+            { name: 'Riddle Transfer 2', filename: 'offline/riddletransfer2.html' },
+            { name: 'Rocket Soccer Derby', filename: 'offline/rocketsoccerderby.html' },
+            { name: 'Rooftop Snipers', filename: 'offline/rooftopsnipers.htm' },
+            { name: 'Rooftop Snipers 2', filename: 'offline/rooftopsnipers2.html' },
+            { name: 'Run', filename: 'offline/run.html' },
+            { name: 'Run 2', filename: 'offline/run2.html' },
+            { name: 'Run 3', filename: 'offline/run3.html' },
+            { name: 'Sand Game', filename: 'offline/sandgame.html' },
+            { name: 'Short Life', filename: 'offline/shortlife.html' },
+            { name: 'Slope', filename: 'offline/slope.html' },
+            { name: 'Slope 2 Player', filename: 'offline/slope2player.html' },
+            { name: 'Slope 3', filename: 'offline/slope3.html' },
+            { name: 'Slow Roads', filename: 'offline/slowroads.html' },
+            { name: 'SM63', filename: 'offline/sm63.html' },
+            { name: 'SM64', filename: 'offline/sm64.html' },
+            { name: 'Snowball.io', filename: 'offline/snowballio.html' },
+            { name: 'Snow Rider', filename: 'offline/snowrider.htm' },
+            { name: 'Snow Road', filename: 'offline/snowroad.htm' },
+            { name: 'Soccer Bros', filename: 'offline/soccerbros.html' },
+            { name: 'Soccer Random', filename: 'offline/soccerrandom.htm' },
+            { name: 'Space Bar Clicker', filename: 'offline/spacebarclicker.html' },
+            { name: 'Space is Key', filename: 'offline/spaceiskey.html' },
+            { name: 'Space is Key 2', filename: 'offline/spaceiskey2.html' },
+            { name: 'Space Waves', filename: 'offline/spacewaves.html' },
+            { name: 'Speed Stars', filename: 'offline/speedstars.html' },
+            { name: 'Sprunki', filename: 'offline/sprunki.html' },
+            { name: 'Stack', filename: 'offline/stack.html' },
+            { name: 'StackTris', filename: 'offline/stacktris.html' },
+            { name: 'State.io', filename: 'offline/stateio.html' },
+            { name: 'Stick Archers Battle', filename: 'offline/stickarchersbattle.html' },
+            { name: 'Stick Fighter', filename: 'offline/stickfighter.html' },
+            { name: 'Stick Man Hook', filename: 'offline/stickmanhook.html' },
+            { name: 'Stick Merge', filename: 'offline/stickmerge.html' },
+            { name: 'Subway Surfers Beijing', filename: 'offline/subwaysurfersbeijing.html' },
+            { name: 'Subway Surfers Havana', filename: 'offline/subwaysurfershavana.html' },
+            { name: 'Subway Surfers San Francisco', filename: 'offline/subwaysurferssanfrancisco.html' },
+            { name: 'Super Bike The Champion', filename: 'offline/superbikethechampion.html' },
+            { name: 'Superhot', filename: 'offline/superhot.html' },
+            { name: 'Super Liquid Soccer', filename: 'offline/superliquidsoccer.html' },
+            { name: 'Superstar Car', filename: 'offline/superstarcar.html' },
+            { name: 'Table Tennis World Tour', filename: 'offline/tabletennisworldtour.html' },
+            { name: 'Tag', filename: 'offline/tag.html' },
+            { name: 'Tap Road', filename: 'offline/taproad.html' },
+            { name: 'Temple of Boom', filename: 'offline/templeofboom.html' },
+            { name: 'Temple Run 2', filename: 'offline/templerun2.htm' },
+            { name: 'Territorial.io', filename: 'offline/territorialio.html' },
+            { name: 'The Impossible Quiz', filename: 'offline/theimpossiblequiz.html' },
+            { name: 'The Impossible Quiz 2', filename: 'offline/theimpossiblequiz2.html' },
+            { name: 'There is No G', filename: 'offline/thereisnog.html' },
+            { name: 'They Are Coming', filename: 'offline/theyarecoming.html' },
+            { name: 'This is the Only Level', filename: 'offline/thisistheonlylevel.html' },
+            { name: 'This is the Only Level Too', filename: 'offline/thisistheonlyleveltoo.html' },
+            { name: 'Time Shooter 2', filename: 'offline/timeshooter2.html' },
+            { name: 'Time Shooter 3', filename: 'offline/timeshooter3.htm' },
+            { name: 'Tiny Fishing', filename: 'offline/tinyfishing.html' },
+            { name: 'Tomb of the Mask', filename: 'offline/tombofthemask.htm' },
+            { name: 'Trap the Cat', filename: 'offline/trapthecat.html' },
+            { name: 'Trivia Crack', filename: 'offline/triviacrack.html' },
+            { name: 'Tube Jumpers', filename: 'offline/tubejumpers.html' },
+            { name: 'Tunnel Rush', filename: 'offline/tunnelrush.html' },
+            { name: 'Unicycle Hero', filename: 'offline/unicyclehero.html' },
+            { name: 'Vex 4', filename: 'offline/vex4.html' },
+            { name: 'Vex 5', filename: 'offline/vex5.html' },
+            { name: 'Vex 6', filename: 'offline/vex6.htm' },
+            { name: 'Vex 7', filename: 'offline/vex7.htm' },
+            { name: 'Vex 8', filename: 'offline/vex8.htm' },
+            { name: 'Vexx 3M', filename: 'offline/vexx3m.html' },
+            { name: 'Vexx 3M 2', filename: 'offline/vexx3m2.html' },
+            { name: 'Volley Random', filename: 'offline/volleyrandom.html' },
+            { name: 'War the Knights', filename: 'offline/wartheknights.html' },
+            { name: 'We Become What We Behold', filename: 'offline/webecomewhatwebehold.html' },
+            { name: 'Wheelie Bike', filename: 'offline/wheeliebike.html' },
+            { name: 'Wheely', filename: 'offline/wheely.html' },
+            { name: 'Wheely 2', filename: 'offline/wheely2.html' },
+            { name: 'Wheely 3', filename: 'offline/wheely3.html' },
+            { name: 'Wheely 4', filename: 'offline/wheely4.html' },
+            { name: 'Wheely 5', filename: 'offline/wheely5.html' },
+            { name: 'Wheely 6', filename: 'offline/wheely6.html' },
+            { name: 'Wheely 7', filename: 'offline/wheely7.html' },
+            { name: 'Wheely 8', filename: 'offline/wheely8.html' },
+            { name: 'Wordle Unlimited', filename: 'offline/wordleunlimited.html' },
+            { name: "World's Hardest Game", filename: 'offline/worldshardestgame.html' },
+            { name: "World's Hardest Game 2", filename: 'offline/worldshardestgame2.html' },
+            { name: "World's Hardest Game 3", filename: 'offline/worldshardestgame3.html' },
+            { name: 'Wrestle Bros', filename: 'offline/wrestlebros.html' },
+            { name: 'Zombie Rush', filename: 'offline/zombierush.html' },
         ];
 
-        // Alternative: If you want to manually specify games, use the list above.
-        // If you want automatic detection, populate the GAMES_LIST array with filenames.
+        let filteredGames = [...GAMES_LIST];
 
-        function initLauncher() {
-            const container = document.getElementById('gamesContainer');
+        // Function to fetch and embed HTML into about:blank tab
+        async function openGameInBlankTab(gameName, filePath) {
+            try {
+                // Fetch the HTML file from the repository
+                const response = await fetch(filePath);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                const htmlContent = await response.text();
+
+                // Open a new blank tab
+                const newWindow = window.open('', '_blank');
+                
+                if (!newWindow) {
+                    throw new Error('Failed to open new window. Please disable your popup blocker.');
+                }
+
+                // Write the HTML content directly to the new window
+                newWindow.document.open();
+                newWindow.document.write(htmlContent);
+                newWindow.document.close();
+
+                // Set the window title
+                newWindow.document.title = gameName + ' - MHI Games';
+
+            } catch (error) {
+                console.error('Error loading game:', error);
+                alert(`⚠️ Failed to load ${gameName}\n\nError: ${error.message}\n\nMake sure the game file exists in the offline folder.`);
+            }
+        }
+
+        // Search functionality
+        function filterGames(searchTerm) {
+            const term = searchTerm.toLowerCase().trim();
             
-            if (GAMES_LIST.length === 0) {
+            if (term === '') {
+                filteredGames = [...GAMES_LIST];
+            } else {
+                filteredGames = GAMES_LIST.filter(game => 
+                    game.name.toLowerCase().includes(term)
+                );
+            }
+            
+            renderGames();
+        }
+
+        // Render games
+        function renderGames() {
+            const container = document.getElementById('gamesContainer');
+            const countText = document.getElementById('gameCountText');
+            
+            if (filteredGames.length === 0) {
                 container.innerHTML = `
-                    <div class="no-games">
-                        No games found. Please add game filenames to the GAMES_LIST array in the script.
+                    <div class="no-games" style="grid-column: 1 / -1;">
+                        No games found. Try a different search!
                     </div>
                 `;
+                countText.textContent = 'No games found';
                 return;
             }
 
             container.innerHTML = '';
+            countText.textContent = `Showing ${filteredGames.length} of ${GAMES_LIST.length} games`;
             
-            GAMES_LIST.forEach(game => {
+            filteredGames.forEach(game => {
                 const button = document.createElement('button');
                 button.className = 'game-button';
-                button.textContent = game.replace('.html', '').toUpperCase();
+                button.textContent = game.name;
                 button.onclick = () => {
-                    window.open(OFFLINE_FOLDER + game, '_blank');
+                    openGameInBlankTab(game.name, game.filename);
                 };
+                button.title = `Click to play ${game.name}`;
                 container.appendChild(button);
             });
         }
 
         // Initialize when DOM is ready
-        document.addEventListener('DOMContentLoaded', initLauncher);
+        function init() {
+            renderGames();
+            
+            // Setup search box
+            const searchBox = document.getElementById('searchBox');
+            searchBox.addEventListener('input', (e) => {
+                filterGames(e.target.value);
+            });
+
+            // Allow Enter key to search
+            searchBox.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                }
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
     </script>
 </body>
 </html>
