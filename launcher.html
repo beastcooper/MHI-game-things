@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MHI Games Launcher</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .game-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .game-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .game-button:active {
+            transform: translateY(-2px);
+        }
+
+        .no-games {
+            text-align: center;
+            color: #666;
+            padding: 40px;
+            font-size: 1.1em;
+        }
+
+        .loading {
+            text-align: center;
+            color: #667eea;
+            padding: 20px;
+            font-size: 1.1em;
+        }
+
+        .info {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin-top: 30px;
+            border-radius: 5px;
+            color: #333;
+            font-size: 0.9em;
+        }
+
+        .info strong {
+            color: #667eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎮 MHI Games</h1>
+        <p class="subtitle">Select a game to play</p>
+        
+        <div id="gamesContainer" class="games-grid">
+            <div class="loading">Loading games...</div>
+        </div>
+
+        <div class="info">
+            <strong>ℹ️ Note:</strong> Games are loaded from the <code>offline</code> folder. Each button will open the game in a new window.
+        </div>
+    </div>
+
+    <script>
+        // Configuration
+        const OFFLINE_FOLDER = 'offline/';
+        const GAMES_LIST = [
+            // Add your HTML file names here, for example:
+            // 'game1.html',
+            // 'game2.html',
+            // 'game3.html',
+        ];
+
+        // Alternative: If you want to manually specify games, use the list above.
+        // If you want automatic detection, populate the GAMES_LIST array with filenames.
+
+        function initLauncher() {
+            const container = document.getElementById('gamesContainer');
+            
+            if (GAMES_LIST.length === 0) {
+                container.innerHTML = `
+                    <div class="no-games">
+                        No games found. Please add game filenames to the GAMES_LIST array in the script.
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            
+            GAMES_LIST.forEach(game => {
+                const button = document.createElement('button');
+                button.className = 'game-button';
+                button.textContent = game.replace('.html', '').toUpperCase();
+                button.onclick = () => {
+                    window.open(OFFLINE_FOLDER + game, '_blank');
+                };
+                container.appendChild(button);
+            });
+        }
+
+        // Initialize when DOM is ready
+        document.addEventListener('DOMContentLoaded', initLauncher);
+    </script>
+</body>
+</html>
